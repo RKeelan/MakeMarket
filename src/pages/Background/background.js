@@ -39,4 +39,3 @@ chrome.runtime.onInstalled.addListener(() => {
   async function createPredictionMarket(tweet) {
     console.log('Creating prediction market for tweet:', tweet);
   }
-
