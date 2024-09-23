@@ -1,5 +1,4 @@
 console.log('Content script loaded');
-
   
   function extractTweetDetails(tweetElement) {
     const statusLink = tweetElement.querySelector('a[href*="/status/"]');

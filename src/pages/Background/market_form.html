@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Prediction Market</title>
+    <link rel="stylesheet" href="market_form.css">
+</head>
+<body>
+    <form id="marketForm">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="closeTime">Close Time:</label>
+        <input type="datetime-local" id="closeTime" name="closeTime" required>
+
+        <button type="submit">Submit</button>
+        <button type="button" id="cancelButton">Cancel</button>
+    </form>
+    <script src="market_form.js"></script>
+</body>
+</html>
