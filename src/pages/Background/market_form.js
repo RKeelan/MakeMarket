@@ -7,8 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (request.action === 'populateForm') {
       document.getElementById('question').value = request.marketData.question;
       document.getElementById('description').value = request.marketData.description;
-      // Convert milliseconds to local date-time string for input
-      document.getElementById('closeTime').value = new Date(request.marketData.closeTime).toLocaleString();
+
+      // Convert milliseconds to ISO string for datetime-local input
+      const closeDate = new Date(request.marketData.closeTime);
+      document.getElementById('closeTime').value = closeDate.toISOString().slice(0, 16);
     } else if (request.action === 'submitError') {
       alert(`Error creating market: ${request.error}`);
     }
