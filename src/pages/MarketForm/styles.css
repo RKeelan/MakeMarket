@@ -39,6 +39,7 @@ textarea {
 
 #question {
     height: auto;
+    width: 100%;
 }
 
 button {
