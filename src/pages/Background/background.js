@@ -15,7 +15,10 @@ chrome.runtime.onInstalled.addListener(() => {
     id: "createPredictionMarketContextMenuEntry",
     title: "Create Prediction Market for Tweet",
     contexts: ["link"],
-    documentUrlPatterns: ["https://twitter.com/*"]
+    documentUrlPatterns: [
+      "https://twitter.com/*",
+      "https://x.com/*"
+    ]
   }, () => {
     if (chrome.runtime.lastError) {
       console.error('Error creating context menu:', chrome.runtime.lastError);
