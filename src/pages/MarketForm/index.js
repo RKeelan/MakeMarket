@@ -3,6 +3,11 @@ import './styles.css';
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('marketForm');
     const cancelButton = document.getElementById('cancelButton');
+    const timeZoneElement = document.getElementById('timeZone');
+
+    // Display user's time zone
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    timeZoneElement.textContent = `Time zone: ${timeZone}`;
 
     // Listen for the initial market data
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
