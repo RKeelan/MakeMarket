@@ -11,9 +11,15 @@ function extractTweetDetails(tweetElement) {
   const username = statusLink.href.split('/')[3];
   console.log('Extracted username:', username);
 
+  const authorElement = document.querySelector('[data-testid="User-Name"]');
+  const authorName = authorElement.querySelector('span').textContent;
+  console.log('Extracted authorName:', authorName);
+
   return {
     id: id,
+    url: statusLink.href,
     text: text,
+    author: authorName,
     username: username
   };
 }
