@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.action === 'populateForm') {
             document.getElementById('question').value = request.marketData.question;
-            document.getElementById('description').value = request.marketData.descriptionMarkdown;
+            document.getElementById('description').value = request.marketData.descriptionHtml;
 
             // Convert milliseconds to ISO string for datetime-local input
             const closeDate = new Date(request.marketData.closeTime);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const marketData = {
             outcomeType: 'BINARY',
             question: document.getElementById('question').value,
-            descriptionMarkdown: document.getElementById('description').value,
+            descriptionHtml: document.getElementById('description').value,
             closeTime: closeTimeDate.getTime(), // Convert to milliseconds since epoch
             initialProbability: 50,
         };

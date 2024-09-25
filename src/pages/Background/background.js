@@ -72,20 +72,15 @@ async function createManifoldMarket(tweet) {
     outcomeType: 'BINARY',
     question: `${questionPrefix}${tweetInQuestion}${questionSuffix}`,
     closeTime: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now in milliseconds
-    descriptionMarkdown: `
-This market was created by MakeMarket, which is meant to allow quick generation of markets and uses these default rules unless otherwise stated:
-
-This market is about the following tweet by @${tweet.username}:
-
-${createSimpleTweetMarkdown(tweet)}
-
-Resolution criteria:
-- This market resolves to YES if the Tweet centrally holds up or appears centrally true by the deadline.
-- The market resolves to NO if the Tweet does not centrally hold up or appears centrally false by the deadline.
-- If the deadline is reached and this cannot be resolved to either YES or NO, but that looks to be possible soon, the deadline will be extended.
-- If the deadline is reached and a full YES or NO resolution does not appear possible soon, this will resolve to a fair percentage by market creator's best judgment, by default as indicated by the market price.
-- If and only if this market proves popular, the market creator is encouraged to and reserves the right to clarify these rules and specify a more robust, detailed and appropriate resolution mechanism that adheres to the intent of a market based on the linked Tweet.
-    `,
+    descriptionHtml: `<tiptap-tweet tweetid="t${tweet.id}"></tiptap-tweet>
+<p>This market was created by MakeMarket, which is meant to allow quick generation of markets and uses these default rules unless otherwise stated:</p>
+<ul>
+  <li>This market resolves to YES if the Tweet centrally holds up or appears centrally true by the deadline.</li>
+  <li>The market resolves to NO if the Tweet does not centrally hold up or appears centrally false by the deadline.</li>
+  <li>If the deadline is reached and this cannot be resolved to either YES or NO, but that looks to be possible soon, the deadline will be extended.</li>
+  <li>If the deadline is reached and a full YES or NO resolution does not appear possible soon, this will resolve to a fair percentage by market creator's best judgment, by default as indicated by the market price.</li>
+  <li>If and only if this market proves popular, the market creator is encouraged to and reserves the right to clarify these rules and specify a more robust, detailed and appropriate resolution mechanism that adheres to the intent of a market based on the linked Tweet.</li>
+</ul>`,
     initialProbability: 50,
   };
 
@@ -153,15 +148,4 @@ async function submitMarket(marketData, tabId) {
     chrome.tabs.sendMessage(tabId, { action: 'submitError', error: error.message });
     throw error;
   }
-}
-
-function createSimpleTweetMarkdown(tweet) {
-  if (!tweet) return '';
-  return `
-> ${tweet.text}
-> 
-> — ${tweet.author} (@${tweet.username})
-> 
-> [Link to tweet](${tweet.url})
-  `;
 }
