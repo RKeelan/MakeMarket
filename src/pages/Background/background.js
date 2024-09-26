@@ -73,7 +73,7 @@ async function createManifoldMarket(tweet) {
     question: `${questionPrefix}${tweetInQuestion}${questionSuffix}`,
     closeTime: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now in milliseconds
     descriptionHtml: `<tiptap-tweet tweetid="t${tweet.id}"></tiptap-tweet>
-<p>This market was created by MakeMarket, which is meant to allow quick generation of markets and uses these default rules unless otherwise stated:</p>
+<p>This market was created by <a href="https://github.com/RKeelan/MakeMarket">MakeMarket</a>, which is meant to allow quick generation of markets and uses these default rules unless otherwise stated:</p>
 <ul>
   <li>This market resolves to YES if the Tweet centrally holds up or appears centrally true by the deadline.</li>
   <li>The market resolves to NO if the Tweet does not centrally hold up or appears centrally false by the deadline.</li>
