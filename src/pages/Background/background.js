@@ -84,31 +84,25 @@ async function createManifoldMarket(tweet) {
     initialProbability: 50,
   };
 
-  console.log('Form URL:', chrome.runtime.getURL('market_form.html'));
-  // Open a new tab with the form
-  chrome.tabs.create({ url: chrome.runtime.getURL('market_form.html') }, (tab) => {
-    // Listen for messages from the form
-    chrome.runtime.onMessage.addListener(function listener(request, sender, sendResponse) {
-      if (request.action === 'submitMarket' && sender.tab.id === tab.id) {
-        submitMarket(request.marketData, tab.id);
-        chrome.runtime.onMessage.removeListener(listener);
-      } else if (request.action === 'cancelMarket' && sender.tab.id === tab.id) {
-        chrome.tabs.remove(tab.id);
-        chrome.runtime.onMessage.removeListener(listener);
+  try {
+    const marketResult = await submitMarket(marketData);
+    console.log('Market created successfully:', marketResult);
+    // Open the new market in a new tab
+    chrome.tabs.create({ url: marketResult.url });
+    return marketResult;
+  } catch (error) {
+    console.error('Error creating market:', error);
+    // Send error message to the active tab
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "showError", error: error.message });
       }
     });
-
-    // Send market data to the form
-    chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
-      if (tabId === tab.id && changeInfo.status === 'complete') {
-        chrome.tabs.sendMessage(tabId, { action: 'populateForm', marketData: marketData });
-        chrome.tabs.onUpdated.removeListener(listener);
-      }
-    });
-  });
+    throw error;
+  }
 }
 
-async function submitMarket(marketData, tabId) {
+async function submitMarket(marketData) {
   try {
     // Fetch the Manifold API key from Chrome storage
     const result = await chrome.storage.sync.get(['manifoldApiKey']);
@@ -137,15 +131,9 @@ async function submitMarket(marketData, tabId) {
     const marketResult = await response.json();
     console.log('Market created successfully:', marketResult);
 
-    // Close the form tab and open the new market
-    chrome.tabs.remove(tabId);
-    chrome.tabs.create({ url: marketResult.url });
-
     return marketResult;
   } catch (error) {
     console.error('Error creating market:', error);
-    // Send error message to the form
-    chrome.tabs.sendMessage(tabId, { action: 'submitError', error: error.message });
     throw error;
   }
 }

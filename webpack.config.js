@@ -41,7 +41,6 @@ var options = {
     options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
     background: path.join(__dirname, 'src', 'pages', 'Background', 'background.js'),
     contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'content.js'),
-    marketForm: path.join(__dirname, 'src', 'pages', 'MarketForm', 'index.js'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools'],
@@ -185,12 +184,6 @@ var options = {
       template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
       filename: 'options.html',
       chunks: ['options'],
-      cache: false,
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'MarketForm', 'index.html'),
-      filename: 'market_form.html',
-      chunks: ['marketForm'],
       cache: false,
     }),
   ].filter(Boolean),
