@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MakeMarket",
+  "version": "1.0.0",
   "description": "A chrome extension to create prediction markets from tweets",
   "options_page": "options.html",
   "permissions": [
