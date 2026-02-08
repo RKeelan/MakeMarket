@@ -2,6 +2,8 @@
 
 # MakeMarket
 
+[![CI](https://github.com/RKeelan/MakeMarket/actions/workflows/ci.yml/badge.svg)](https://github.com/RKeelan/MakeMarket/actions/workflows/ci.yml)
+
 A Chrome extension for automatically creating a prediction market from a tweet.
 
 ## Setup
